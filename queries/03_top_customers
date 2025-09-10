@@ -1,0 +1,12 @@
+-- Top 10 customer based on their total spending.
+
+SELECT TOP 10 c.customer_id,
+			  c.first_name, 
+			  c.last_name,
+			  SUM(amount) as TotalSpentPerCustomer 
+FROM customer C
+LEFT JOIN payment p ON c.customer_id = p.customer_id 
+GROUP BY c.customer_id, c.first_name, c.last_name 
+ORDER BY TotalSpentPerCustomer DESC;
+
+
