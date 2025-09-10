@@ -1,0 +1,14 @@
+-- the most popular film categories
+
+SELECT 
+	c.category_id,
+	c.name,
+	SUM(p.amount) AS TotalRevenuePerCategory,
+	COUNT(r.rental_id) AS TotalRentals
+FROM category c
+LEFT JOIN film_category ON c.category_id= film_category.category_id
+JOIN inventory i ON film_category.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY c.name, c.category_id
+ORDER BY TotalRentals DESC;
