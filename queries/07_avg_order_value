@@ -1,0 +1,21 @@
+-- TOP 10 Average Order Value 
+SELECT TOP 10
+	   c.customer_id,
+	   c.first_name,
+	   c.last_name,
+	   SUM(p.amount)/COUNT(Distinct p.payment_id) As AverageOrderValue
+FROM customer c
+LEFT JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY AverageOrderValue DESC;
+
+-- Average Order Value 
+
+WITH AverageOrderValue AS (
+SELECT p.customer_id,
+	   SUM(p.amount)/COUNT(DISTINCT p.payment_id) AS AvgValue
+FROM payment p 
+GROUP BY p.customer_id
+)
+SELECT AVG(AvgValue) AS AvgOrderValue
+FROM AverageOrderValue;
