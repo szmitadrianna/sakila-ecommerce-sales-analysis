@@ -1,1 +1,10 @@
+-- Monthly revenue for the year 2010 
+
+SELECT YEAR(p.payment_date) as year,
+MONTH(p.payment_date) as month,
+SUM(p.amount) as TotalRevenue
+FROM payment p
+WHERE YEAR(payment_date) = 2010
+GROUP BY MONTH(payment_date), YEAR(payment_date)
+ORDER BY MONTH(payment_date) ASC;
 
