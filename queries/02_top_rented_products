@@ -1,0 +1,10 @@
+--the most popular products by number of rentals.
+
+SELECT f.film_id,
+	   f.title, 
+	   COUNT(r.rental_id) as TotalRentals
+FROM film f
+LEFT JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+GROUP BY f.film_id, f.title
+ORDER BY TotalRentals DESC;
